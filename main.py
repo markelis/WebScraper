@@ -5,8 +5,8 @@ url = "https://fragtrag1.upatras.gr/exist/apps/fragtrag/indexc.html"
 
 grab = requests.get(url)
 soup = BeautifulSoup(grab.content, 'html.parser')
-# rs = (grequests.get(u) for u in url)
 
+# rs = (grequests.get(u) for u in url)
 
 """
 rs = grequests.get(url)
