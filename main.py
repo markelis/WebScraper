@@ -10,7 +10,7 @@ Root url - https://fragtrag1.upatras.gr/
 Root urn - urn:cite2:fragtrag
 
 Links_array - Array of links contains
-    [0]: Reference to ExistDB (not required)
+    [0]: Reference to eXist-db [The Open Source Native XML Database] (not required)
     [1]: Platform url attribute (not required)
     [2]: Platform name (not required)
     [3]: Name of poet (Required)
