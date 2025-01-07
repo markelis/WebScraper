@@ -83,5 +83,3 @@ for i, url in enumerate(urls_array):
 
 print(f'links_array: {links_array}')
 print(f'urns_array: {urns_array}')
-
-
