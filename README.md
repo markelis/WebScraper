@@ -13,5 +13,6 @@
     <p>[4]: Name of object (Required)</p>
     <p>[5]: Type of object or poem title (Optional)</p>
     <p>[6]: Source identifier (Optional)</p>
+<p>### ToDo - urn path description ###</p>
 <p>Additionaly a file with all the urls extracted be WebScraber is being created for future reference and debugging of resutls (A sample of the file exported can be found <a href="Docs/urls.txt" target="_blank">here</a>).</p>
 <p>Moreover an attempt is being done to describe the algorithm behind which the urns are being created trying to build a standardized method.</p>
