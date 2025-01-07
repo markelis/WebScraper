@@ -1,3 +1,5 @@
+import re
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -50,6 +52,15 @@ f.close()
 # Code to build URNs
 
 for i, link in enumerate(links_array):
+
+    # A complite name is created for each type of object
+    if links_array[i][5] == 'test':
+        links_array[i][5] = 'testimonium'
+    elif links_array[i][5] == 'frag':
+        links_array[i][5] = 'fragment'
+    elif links_array[i][5] == 'rep':
+        links_array[i][5] = 'report'
+
     urns_array.append(root_urn)
     urns_array[i] += ":" + links_array[i][3]
     urns_array[i] += "." + links_array[i][4]
@@ -60,9 +71,10 @@ for i, link in enumerate(links_array):
         urns_array[i] += ":" + links_array[i][5]
     else:
         urns_array[i] += "." + links_array[i][5]
-        urns_array[i] += ":" + links_array[i][6]
+        # ID is represented by only by numbers and letters
+        urns_array[i] += ":" + re.sub("[^A-Za-z0-9]+", "", links_array[i][6])
 
-f = open('Docs/urns.txt', 'w')
+f = open('urns.txt', 'w')
 
 for i, url in enumerate(urls_array):
     data = url + '\t' + urns_array[i]
