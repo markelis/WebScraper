@@ -10,7 +10,7 @@ IMPORTANT NOTES - Why does urn has to start with cite2?
                 - On line 580 of urls why title is These...
 
 Root url - https://fragtrag1.upatras.gr/
-Root urn - urn:cite2:fragtrag
+Root urn - urn:fragtrag
 
 Links_array - Array of links contains
     [0]: Reference to eXist-db [The Open Source Native XML Database] (not required)
@@ -77,6 +77,8 @@ for i, link in enumerate(links_array):
     # Afterward check if title exists
     if links_array[i][6] == 'title':
         urns_array[i] += "." + links_array[i][6]
+        if links_array[i][5] == 'UP':
+            links_array[i][5] = 'unknown-plays'
         # urns_array[i] += ":" + links_array[i][5].lower()
         # Dashes are SEO friendly and more readable
         urns_array[i] += ":" + re.sub(r"_", "-", links_array[i][5].lower())
