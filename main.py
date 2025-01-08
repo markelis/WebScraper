@@ -99,14 +99,12 @@ for fragtrag in root.findall('.//fragtrag'):
     # Get the value of the corresp attribute
     corresp_value = fragtrag.get('corresp')
     index = None
-    # Create a new text node with the corresp value and additional string
-    # new_text = f"{corresp_value} {string_to_add}"
 
     try:
         # Find the index of the search string
-        print(f'corresp_value: {corresp_value}')
+        # print(f'corresp_value: {corresp_value}') # For debugging
         index = [i for i, url in enumerate(urls_array) if corresp_value == ("#" + url.split('#')[1])]
-        print(f"The index of '{corresp_value}' is: {index}")
+        # print(f"The index of '{corresp_value}' is: {index}") # For debugging
     except ValueError:
         print(f"'{corresp_value}' is not in the urls_array.")
 
@@ -117,5 +115,5 @@ for fragtrag in root.findall('.//fragtrag'):
 # Write the modified XML back to a file
 xml_parse.write('modified_file.xml', encoding='utf-8', xml_declaration=True)
 
-# print(f'links_array: {links_array}')
-# print(f'urns_array: {urns_array}')
+# print(f'links_array: {links_array}') # For debugging
+# print(f'urns_array: {urns_array}') # For debugging
