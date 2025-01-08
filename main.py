@@ -1,7 +1,8 @@
 import re
-
 import requests
 from bs4 import BeautifulSoup
+
+import xml.etree.ElementTree as ET
 
 """
 IMPORTANT NOTES - Why does urn has to start with cite2?
@@ -21,6 +22,11 @@ Links_array - Array of links contains
     [6]: Source identifier (Optional)
 """
 
+# Load the XML file
+xml_parse = ET.parse('concordance.xml')
+root = xml_parse.getroot()
+
+
 url = "https://fragtrag1.upatras.gr/exist/apps/fragtrag/indexc.html"
 root_urn = "urn:fragtrag"
 
@@ -32,6 +38,7 @@ f = open('urls.txt', 'w')
 links_array = []
 urls_array = []
 urns_array = []
+tagged_urns_array = []
 
 true_index = 0
 
@@ -51,7 +58,6 @@ f.close()
 
 # Code to build URNs
 
-
 # ToDo: Some remarks made by Andreas on exported strings
 for i, link in enumerate(links_array):
 
@@ -63,6 +69,7 @@ for i, link in enumerate(links_array):
     elif links_array[i][5] == 'rep':
         links_array[i][5] = 'report'
 
+    tagged_urns_array.append('<urn>')
     urns_array.append(root_urn)
     urns_array[i] += ":" + links_array[i][3]
     urns_array[i] += "." + links_array[i][4]
@@ -77,7 +84,7 @@ for i, link in enumerate(links_array):
         urns_array[i] += "." + links_array[i][5].lower()
         # ID is represented by only by numbers and letters
         urns_array[i] += ":" + re.sub("[^A-Za-z0-9]+", "", links_array[i][6]).lower()
-
+    tagged_urns_array[i] += urns_array[i] + '</urn>'
 f = open('urns.txt', 'w')
 
 for i, url in enumerate(urls_array):
@@ -85,5 +92,30 @@ for i, url in enumerate(urls_array):
     f.write(data)
     f.write('\n')
 
-print(f'links_array: {links_array}')
-print(f'urns_array: {urns_array}')
+f.close()
+
+# Iterate through all fragtrag elements
+for fragtrag in root.findall('.//fragtrag'):
+    # Get the value of the corresp attribute
+    corresp_value = fragtrag.get('corresp')
+    index = None
+    # Create a new text node with the corresp value and additional string
+    # new_text = f"{corresp_value} {string_to_add}"
+
+    try:
+        # Find the index of the search string
+        print(f'corresp_value: {corresp_value}')
+        index = [i for i, url in enumerate(urls_array) if corresp_value == ("#" + url.split('#')[1])]
+        print(f"The index of '{corresp_value}' is: {index}")
+    except ValueError:
+        print(f"'{corresp_value}' is not in the urls_array.")
+
+    # Add the new text to the fragtrag element
+    if index:
+        fragtrag.text = (fragtrag.text or '') + tagged_urns_array[index[0]]
+
+# Write the modified XML back to a file
+xml_parse.write('modified_file.xml', encoding='utf-8', xml_declaration=True)
+
+# print(f'links_array: {links_array}')
+# print(f'urns_array: {urns_array}')
