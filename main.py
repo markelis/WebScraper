@@ -22,7 +22,7 @@ Links_array - Array of links contains
 """
 
 url = "https://fragtrag1.upatras.gr/exist/apps/fragtrag/indexc.html"
-root_urn = "urn:cite2:fragtrag"
+root_urn = "urn:fragtrag"
 
 grab = requests.get(url)
 soup = BeautifulSoup(grab.content, 'html.parser')
@@ -51,9 +51,11 @@ f.close()
 
 # Code to build URNs
 
+
+# ToDo: Some remarks made by Andreas on exported strings
 for i, link in enumerate(links_array):
 
-    # A complite name is created for each type of object
+    # A complete name is created for each type of object
     if links_array[i][5] == 'test':
         links_array[i][5] = 'testimonium'
     elif links_array[i][5] == 'frag':
@@ -68,11 +70,13 @@ for i, link in enumerate(links_array):
     # Afterward check if title exists
     if links_array[i][6] == 'title':
         urns_array[i] += "." + links_array[i][6]
-        urns_array[i] += ":" + links_array[i][5]
+        # urns_array[i] += ":" + links_array[i][5].lower()
+        # Dashes are SEO friendly and more readable
+        urns_array[i] += ":" + re.sub(r"_", "-", links_array[i][5].lower())
     else:
-        urns_array[i] += "." + links_array[i][5]
+        urns_array[i] += "." + links_array[i][5].lower()
         # ID is represented by only by numbers and letters
-        urns_array[i] += ":" + re.sub("[^A-Za-z0-9]+", "", links_array[i][6])
+        urns_array[i] += ":" + re.sub("[^A-Za-z0-9]+", "", links_array[i][6]).lower()
 
 f = open('urns.txt', 'w')
 
