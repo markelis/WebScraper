@@ -1,4 +1,6 @@
 import re
+from html import unescape
+
 import requests
 from datetime import date
 from bs4 import BeautifulSoup
@@ -69,7 +71,7 @@ for i, link in enumerate(links_array):
     elif links_array[i][5] == 'rep':
         links_array[i][5] = 'report'
 
-    tagged_urns_array.append('<urn>')
+    tagged_urns_array.append(unescape('<urn>'))
     urns_array.append(root_urn)
     urns_array[i] += ":" + links_array[i][3]
     urns_array[i] += "." + links_array[i][4]
@@ -86,7 +88,7 @@ for i, link in enumerate(links_array):
         urns_array[i] += "." + links_array[i][5].lower()
         # ID is represented only by numbers and letters
         urns_array[i] += ":" + re.sub("[^A-Za-z0-9]+", "", links_array[i][6]).lower()
-    tagged_urns_array[i] += urns_array[i] + '</urn>'
+    tagged_urns_array[i] += urns_array[i] + unescape('</urn>')
 f = open('urns.txt', 'w')
 
 for i, url in enumerate(urls_array):
@@ -112,7 +114,7 @@ for fragtrag in root.findall('.//fragtrag'):
 
     # Add the new text to the fragtrag element
     if index:
-        fragtrag.text = (fragtrag.text or '') + tagged_urns_array[index[0]]
+        fragtrag.text = (fragtrag.text or '') + unescape(tagged_urns_array[index[0]])
 
 xml_file_name = today.strftime("%Y%m%d") + '-concordance.xml'
 
