@@ -6,8 +6,8 @@ from bs4 import BeautifulSoup
 import xml.etree.ElementTree as ET
 
 """
-IMPORTANT NOTES - Why does urn has to start with cite2?
-                - On line 169 of urls why id returns 3(?)
+IMPORTANT NOTES - Why does urn has to start with cite2? - resolved
+                - On line 169 of urls why id returns 3(?) - resolved
                 - On line 580 of urls why title is These...
 
 Root url - https://fragtrag1.upatras.gr/
@@ -59,7 +59,6 @@ f.close()
 
 # Code to build URNs
 
-# ToDo: Some remarks made by Andreas on exported strings
 for i, link in enumerate(links_array):
 
     # A complete name is created for each type of object
@@ -85,7 +84,7 @@ for i, link in enumerate(links_array):
         urns_array[i] += ":" + re.sub(r"_", "-", links_array[i][5].lower())
     else:
         urns_array[i] += "." + links_array[i][5].lower()
-        # ID is represented by only by numbers and letters
+        # ID is represented only by numbers and letters
         urns_array[i] += ":" + re.sub("[^A-Za-z0-9]+", "", links_array[i][6]).lower()
     tagged_urns_array[i] += urns_array[i] + '</urn>'
 f = open('urns.txt', 'w')
