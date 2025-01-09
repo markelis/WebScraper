@@ -1,5 +1,6 @@
 import re
 import requests
+from datetime import date
 from bs4 import BeautifulSoup
 
 import xml.etree.ElementTree as ET
@@ -39,7 +40,7 @@ links_array = []
 urls_array = []
 urns_array = []
 tagged_urns_array = []
-
+today = date.today()
 true_index = 0
 
 for i, link in enumerate(soup.find_all('a')):
@@ -114,8 +115,10 @@ for fragtrag in root.findall('.//fragtrag'):
     if index:
         fragtrag.text = (fragtrag.text or '') + tagged_urns_array[index[0]]
 
+xml_file_name = today.strftime("%Y%m%d") + '-concordance.xml'
+
 # Write the modified XML back to a file
-xml_parse.write('modified_file.xml', encoding='utf-8', xml_declaration=True)
+xml_parse.write(xml_file_name, encoding='utf-8', xml_declaration=True)
 
 # print(f'links_array: {links_array}') # For debugging
 # print(f'urns_array: {urns_array}') # For debugging
