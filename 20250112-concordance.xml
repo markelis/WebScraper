@@ -659,7 +659,7 @@
         </div2>
         <div2 type="fragmenta">
             <entry>
-                <fragtrag corresp="#Mesatus-N--title">Mesatus : 1. Ν- (;) (title)&lt;urn&gt;urn:fragtrag:mesatus.fragmenta.title:&lt;/urn&gt;</fragtrag>
+                <fragtrag corresp="#Mesatus-N--title">Mesatus : 1. Ν- (;) (title)&lt;urn&gt;urn:fragtrag:mesatus.fragmenta.title:n&lt;/urn&gt;</fragtrag>
                 <tgrf>Mesatus : test. 2 ( = Did. C6, v. 5)</tgrf>
             </entry>
             <entry>
@@ -676,7 +676,7 @@
                 <tgrf>Mesatus : test. 2 ( = Did. C6, v. 7)</tgrf>
             </entry>
             <entry>
-                <fragtrag corresp="#Mesatus-Kyk--title">Mesatus : 5. Κυκ- (;) (title)&lt;urn&gt;urn:fragtrag:mesatus.fragmenta.title:&lt;/urn&gt;</fragtrag>
+                <fragtrag corresp="#Mesatus-Kyk--title">Mesatus : 5. Κυκ- (;) (title)&lt;urn&gt;urn:fragtrag:mesatus.fragmenta.title:kyk&lt;/urn&gt;</fragtrag>
                 <tgrf>Mesatus : test. 2 ( = Did. C6, v. 7) </tgrf>
             </entry>
         </div2>
