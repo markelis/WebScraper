@@ -52,6 +52,8 @@ for i, link in enumerate(soup.find_all('a')):
         links_array.append(data.split('/')[1:])
         if '#' in data:
             links_array[true_index][-1] = data.split('-')[-2]
+            if data.split('-')[-2] == '':
+                links_array[true_index][-1] = data.split('-')[-3]
             links_array[true_index].append(data.split('-')[-1])
         f.write(data)
         f.write('\n')
