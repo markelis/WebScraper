@@ -8,10 +8,6 @@ from bs4 import BeautifulSoup
 import xml.etree.ElementTree as ET
 
 """
-IMPORTANT NOTES - Why does urn has to start with cite2? - resolved
-                - On line 169 of urls why id returns 3(?) - resolved
-                - On line 580 of urls why title is These...
-
 Root url - https://fragtrag1.upatras.gr/
 Root urn - urn:fragtrag
 
