@@ -42,6 +42,7 @@ links_array = []
 urls_array = []
 urns_array = []
 tagged_urns_array = []
+tgrfs_array = []
 today = date.today()
 true_index = 0
 
@@ -118,6 +119,23 @@ for fragtrag in root.findall('.//fragtrag'):
     if index:
         fragtrag.text = (fragtrag.text or '') + unescape(tagged_urns_array[index[0]])
 
+# Iterate through all tgrf elements
+for tgrf in root.findall('.//tgrf'):
+    tgrfs_array.append(tgrf.text)
+    # print(f'tgrf: {tgrf.text}')
+
+# TGRF_URL list exporting to file
+f = open('tgrfs_urls.csv', 'w', encoding='utf-8')
+tgrf_url = 'TGRF \t URL\n'
+f.write(tgrf_url)
+for i, tgrf in enumerate(tgrfs_array):
+    if not 'test' in tgrf:
+        tgrf_url = tgrf + '\t' + 'https://fragtrag1.upatras.gr' + urls_array[i] + '\n'
+        f.write(tgrf_url)
+        # print(f'tgrf: {tgrf} -> url: https://fragtrag1.upatras.gr{urls_array[i]}')
+
+f.close()
+
 xml_file_name = today.strftime("%Y%m%d") + '-concordance.xml'
 
 # Write the modified XML back to a file
@@ -125,3 +143,4 @@ xml_parse.write(xml_file_name, encoding='utf-8', xml_declaration=True)
 
 # print(f'links_array: {links_array}') # For debugging
 # print(f'urns_array: {urns_array}') # For debugging
+# print(f'urls_array: {urls_array}') # For debugging
